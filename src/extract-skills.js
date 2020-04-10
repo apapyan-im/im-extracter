@@ -1,8 +1,8 @@
-const {parseEmployeesSkillsMatrix} = require("./support/parsers");
-const {parseRatingsFactorMatrix} = require("./support/parsers");
-const {parseSkillsHeaderMatrix} = require("./support/parsers");
-
-const {writeData2File} = require("./support/common");
+const {
+    parseEmployeesSkillsMatrix,
+    parseRatingsFactorMatrix ,
+    parseSkillsHeaderMatrix
+} = require("./support/parsers");
 
 const {getSheetData} = require("./support/google-sheet-reader");
 
@@ -23,6 +23,8 @@ const constructEmployeesObject = async () => {
     );
 };
 
-
-constructEmployeesObject()
-    .then(e => writeData2File(".", "employees.json", e));
+module.exports = {
+    getSkillsFor : async (employeeName, employeeLastName, branchName) => {
+        return await constructEmployeesObject().then(employees => employees.find(e => e.name === `${employeeName} ${employeeLastName}` && e.branch === branchName))
+    }
+}

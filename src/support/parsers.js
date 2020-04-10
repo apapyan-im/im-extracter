@@ -1,5 +1,3 @@
-const {writeData2File} = require("./common");
-
 const parseRatingsFactorMatrix = ratingsFactor => {
     return ratingsFactor.map(rating => ({
             ratingValue: parseInt(rating[0].substring(0, 1)),
@@ -46,14 +44,12 @@ const parseEmployeesSkillsMatrix = (employees, skillsHeaderMatrix, ratingsFactor
                 ratingComment: ratingsFactorMAtrix[parseInt(rating)],
                 ...skillsHeaderMatrix[index]
             })).filter(e => e.rating > 0);
-            const employeeSkillObject = {
+        return {
                 name,
                 branch,
                 lastUpdatedDate,
                 skills
             };
-            writeData2File("data", name +".json", employeeSkillObject);
-            return employeeSkillObject;
     });
 };
 

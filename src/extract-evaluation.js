@@ -12,7 +12,7 @@ const KNOWLEDGE_SECTION_RANGE = "!A20:Z24";
 const COMPUTER_SCIENCE_SECTION_RANGE = "!A28:Z31";
 
 const fetchEmployeeData = async (sheetId) => {
-    const [[name]] = await getSheetData(sheetId, EVALUATION_TAB_TITLE, NAME_COLUMN_RANGE );
+    const [[name]] = await getSheetData(sheetId, EVALUATION_TAB_TITLE, NAME_COLUMN_RANGE);
     const requirementsSection = parseEvaluationMatrix(await getSheetData(sheetId, EVALUATION_TAB_TITLE, REQUIREMENTS_SECTION_RANGE));
     const knowledgeSection = parseEvaluationMatrix(await getSheetData(sheetId, EVALUATION_TAB_TITLE, KNOWLEDGE_SECTION_RANGE));
     const computerScienceSection = parseEvaluationMatrix(await getSheetData(sheetId, EVALUATION_TAB_TITLE, COMPUTER_SCIENCE_SECTION_RANGE));
@@ -30,8 +30,8 @@ const fetchEmployeeData = async (sheetId) => {
     };
 };
 
-if (process.argv.length > 2){
-    const [,,id, path] = process.argv;
+if (process.argv.length > 2) {
+    const [, , id, path] = process.argv;
     let savingPath = require("path").resolve(path || EMPLOYEES_DIRECTORY_PATH) + "/";
     fetchEmployeeData(id)
         .then(employeeDataObject => {
