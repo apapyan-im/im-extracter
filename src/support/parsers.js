@@ -8,7 +8,7 @@ const parseRatingsFactorMatrix = ratingsFactor => {
         })
     )
         .sort((prev, next) => prev.ratingValue - next.ratingValue)
-        .map(e => e.ratingComment)
+        .map(e => e.ratingComment.replace("mths", "months"))
 };
 
 const parseSkillsHeaderMatrix = skills => {
@@ -17,7 +17,7 @@ const parseSkillsHeaderMatrix = skills => {
     let currentSubCategory = null;
     let currentSkill = null;
     const parsed = [];
-    for(let i = 0; i< skillTitles.length; ++i){
+    for(let i = 0; i < skillTitles.length; ++i){
         if (categories[i]){
             currentCategory = categories[i];
             currentSubCategory = subCategories[i] ? subCategories[i] : null;
@@ -26,22 +26,24 @@ const parseSkillsHeaderMatrix = skills => {
             currentSubCategory = subCategories[i]
         }
         currentSkill = skillTitles[i];
-        parsed.push({
+        let skillObject = {
             title: currentSkill,
-            category: currentCategory,
-            subCategory: currentSubCategory
-        })
+            relatedTo: [currentCategory],
+        };
+        if(currentSubCategory){
+            skillObject.relatedTo.push(currentSubCategory)
+        }
+        parsed.push(skillObject)
     }
-
     return parsed;
 };
 
-const parseEmployeesSkillsMatrix = (employees, skillsHeaderMatrix, ratingsFactorMAtrix) => {
+const parseEmployeesSkillsMatrix = (employees, skillsHeaderMatrix, ratingsFactorMatrix) => {
     return employees.map(employee => {
             const [name, branch, lastUpdatedDate, ...ratings] = employee;
             const skills = ratings.map((rating, index) => ({
                 rating: parseInt(rating),
-                ratingComment: ratingsFactorMAtrix[parseInt(rating)],
+                ratingComment: ratingsFactorMatrix[parseInt(rating)],
                 ...skillsHeaderMatrix[index]
             })).filter(e => e.rating > 0);
         return {

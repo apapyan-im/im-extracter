@@ -23,8 +23,19 @@ const constructEmployeesObject = async () => {
     );
 };
 
-module.exports = {
-    getSkillsFor : async (employeeName, employeeLastName, branchName) => {
-        return await constructEmployeesObject().then(employees => employees.find(e => e.name === `${employeeName} ${employeeLastName}` && e.branch === branchName))
+const getSkillsFor = async (employeeName, employeeLastName, branchName) => {
+    let employee = await constructEmployeesObject()
+        .then(employees =>
+            employees.find(e =>
+                e.name === `${employeeName} ${employeeLastName}` &&
+                e.branch.toLowerCase() === branchName.toLowerCase())
+        );
+    if(employee) {
+        return employee.skills
     }
+    return []
+}
+
+module.exports = {
+    getSkillsFor
 }
