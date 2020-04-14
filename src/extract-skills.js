@@ -36,10 +36,6 @@ const getSkillsFor = async (employeeName, employeeLastName, branchName) => {
     return []
 }
 
-const {writeData2File} = require("./support/common")
-
-getSkillsFor("Arthur", "Papyan", "Vanadzor").then(e=>writeData2File(".", "ap.json", e))
-
 module.exports = {
     getSkillsFor
 }
