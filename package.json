@@ -1,8 +1,7 @@
 {
-  "name": "evaluation-extracter-im",
+  "name": "im-users-skills-sheet-parser",
   "version": "1.0.0",
   "description": "",
-  "main": "src/extract-evaluation.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
