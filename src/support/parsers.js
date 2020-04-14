@@ -28,7 +28,7 @@ const parseSkillsHeaderMatrix = skills => {
         currentSkill = skillTitles[i];
         let skillObject = {
             title: currentSkill,
-            category: [currentCategory],
+            category: currentCategory,
             relatedCategories: []
         };
         if(currentSubCategory){
